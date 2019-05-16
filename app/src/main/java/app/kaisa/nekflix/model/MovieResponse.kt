@@ -12,7 +12,10 @@ data class MovieResponse(
     @SerializedName("results")
     val results: ArrayList<Movie>
 ){
-    fun setPageNumber(){
-        results.forEach { it.page = page }
+    fun setPagingData(type: MovieType){
+        results.forEach {
+            it.page = page
+            it.type = type
+        }
     }
 }

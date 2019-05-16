@@ -13,16 +13,22 @@ import retrofit2.http.Query
 
 
 
-interface ApiClient {
+interface TmdbNetwork {
 
     @GET("movie/popular")
     fun getMoviesPopular(@Query("page") page: Int): Call<MovieResponse>
+
+    @GET("movie/top_rated")
+    fun getMoviesTopRated(@Query("page") page: Int): Call<MovieResponse>
+
+    @GET("movie/upcoming")
+    fun getMoviesUpcoming(@Query("page") page: Int): Call<MovieResponse>
 
 
     companion object {
         val api by lazy { create() }
 
-        private fun create(): ApiClient {
+        private fun create(): TmdbNetwork {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(object : Interceptor {
                     override fun intercept(chain: Interceptor.Chain): Response {
@@ -47,7 +53,7 @@ interface ApiClient {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ApiClient::class.java)
+                .create(TmdbNetwork::class.java)
         }
     }
 }

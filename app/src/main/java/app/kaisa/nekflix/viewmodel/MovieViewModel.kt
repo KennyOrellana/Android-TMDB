@@ -9,13 +9,13 @@ import app.kaisa.nekflix.repository.TmdbRepository
 
 class MovieViewModel(application: Application): AndroidViewModel(application) {
     private val repository: TmdbRepository = TmdbRepository(application)
-    val allMovies: LiveData<PagedList<Movie>>
+    val moviesPopular: LiveData<PagedList<Movie>>
+    val moviesTopRated: LiveData<PagedList<Movie>>
+    val moviesUpcoming: LiveData<PagedList<Movie>>
 
     init {
-        allMovies = repository.getMovies()
-    }
-
-    fun getMovies(): LiveData<PagedList<Movie>> {
-        return allMovies
+        moviesPopular = repository.movieListPopular
+        moviesTopRated = repository.movieListTopRated
+        moviesUpcoming = repository.movieListUpcoming
     }
 }

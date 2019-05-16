@@ -1,53 +1,44 @@
 package app.kaisa.nekflix.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.*
-import app.kaisa.nekflix.api.ApiClient
-import app.kaisa.nekflix.db.MovieDao
-import app.kaisa.nekflix.db.TmDB
+import app.kaisa.nekflix.api.TmdbNetwork
+import app.kaisa.nekflix.db.TmdbDatabase
 import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.model.MovieResponse
+import app.kaisa.nekflix.model.MovieType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.concurrent.Executors
 
 class TmdbRepository(private val application: Application) {
-    private val pagingConfig = Config(
-        pageSize = 20,
-        enablePlaceholders = true
-    )
 
-    private val movieList: LiveData<PagedList<Movie>>
+    private val api by lazy { TmdbNetwork.api }
+    private val db by lazy { TmdbDatabase.getDB(application) }
+    private val movieDao by lazy { db.moviesDao() }
 
-    private val movieDao: MovieDao
-
-    private val db by lazy {
-        TmDB.getDB(application)
-    }
-    private val api by lazy {
-        ApiClient.api
+    val movieListPopular: LiveData<PagedList<Movie>> by lazy {
+        movieLiveBuilder(this, MovieType.POPULAR)
     }
 
-    init {
-        movieDao = db.moviesDao()
-
-        movieList = LivePagedListBuilder(
-            movieDao.loadMovies(),
-            pagingConfig
-        ).setBoundaryCallback(MovieBoundaryCallback(this))
-        .build()
+    val movieListTopRated: LiveData<PagedList<Movie>> by lazy {
+        movieLiveBuilder(this, MovieType.TOP_RATED)
     }
 
-    fun getMovies(): LiveData<PagedList<Movie>> {
-        return movieList
+    val movieListUpcoming: LiveData<PagedList<Movie>> by lazy {
+        movieLiveBuilder(this, MovieType.UPCOMING)
     }
 
-    fun requestMovies(page: Int) {
+    fun requestMovies(page: Int, movieType: MovieType) {
+        val request = when(movieType) {
+            MovieType.POPULAR -> api.getMoviesPopular(page)
+            MovieType.TOP_RATED -> api.getMoviesTopRated(page)
+            MovieType.UPCOMING -> api.getMoviesUpcoming(page)
+        }
 
-        api.getMoviesPopular(page).enqueue(object : Callback<MovieResponse> {
+        request.enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 //TODO handle errors
             }
@@ -56,12 +47,27 @@ class TmdbRepository(private val application: Application) {
                 if(response.isSuccessful){
                     response.body()?.let {
                         Executors.newSingleThreadExecutor().execute {
-                            it.setPageNumber()
+                            it.setPagingData(movieType)
                             movieDao.insertMovies(it.results)
                         }
                     }
                 }
             }
         })
+    }
+
+    companion object {
+        private val pagingConfig = Config(
+            pageSize = 20,
+            enablePlaceholders = true
+        )
+
+        fun movieLiveBuilder(repository: TmdbRepository, movieType: MovieType): LiveData<PagedList<Movie>> {
+            return LivePagedListBuilder(
+                repository.movieDao.loadMovies(movieType),
+                pagingConfig
+            ).setBoundaryCallback(MovieBoundaryCallback(repository, movieType))
+            .build()
+        }
     }
 }

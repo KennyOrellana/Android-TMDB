@@ -4,24 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import app.kaisa.nekflix.model.Movie
 
 @Database(
     entities = [Movie::class],
     version = 1
 )
-abstract class TmDB: RoomDatabase() {
+@TypeConverters(MovieTypeConverter::class)
+abstract class TmdbDatabase : RoomDatabase() {
     abstract fun moviesDao(): MovieDao
 
     companion object {
         @Volatile
-        private var INSTANCE: TmDB? = null
+        private var INSTANCE: TmdbDatabase? = null
 
-        fun getDB(context: Context): TmDB {
+        fun getDB(context: Context): TmdbDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context,
-                    TmDB::class.java,
+                    TmdbDatabase::class.java,
                 "tmdb"
                 ).fallbackToDestructiveMigration()
                 .build()
