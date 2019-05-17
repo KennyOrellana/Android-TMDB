@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Nekflix</string>
+    <string name="app_name">The Movie DB</string>
+    <string name="app_title">The Movie Database</string>
 </resources>

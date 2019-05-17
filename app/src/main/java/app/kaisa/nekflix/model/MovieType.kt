@@ -6,6 +6,6 @@ enum class MovieType(val type: Int) {
     UPCOMING(3);
 
     companion object {
-        fun get(value: Int) = MovieType.values().find { it.type == value }
+        fun get(value: Int) = values().find { it.type == value }
     }
 }
