@@ -2,6 +2,7 @@ package app.kaisa.nekflix.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import app.kaisa.nekflix.api.ImageUrlBuilder
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies")
@@ -28,4 +29,7 @@ open class Movie(
     @SerializedName("page")
     var page: Int = -1,
     @SerializedName("type")
-    var type: MovieType?)
+    var type: MovieType?){
+
+    fun getPosterUrl() = ImageUrlBuilder.getUrl(posterPath)
+}

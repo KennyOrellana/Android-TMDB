@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/colorPrimary"/>
+
+    <item android:left="64dp"
+          android:right="64dp"
+          android:gravity="center|clip_vertical"
+          android:drawable="@drawable/ic_splash_tmdb">
+    </item>
+</layer-list>

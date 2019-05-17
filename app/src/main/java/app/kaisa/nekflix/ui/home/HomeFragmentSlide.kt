@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import app.kaisa.nekflix.R
 import app.kaisa.nekflix.adapter.HomeAdapter
 import app.kaisa.nekflix.model.MovieType
@@ -28,8 +29,9 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
     }
 
     private fun setupRecyclerView(){
-        val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
+        recyclerView.layoutManager = GridLayoutManager(context, GRID_COLUMNS)
         adapter = HomeAdapter(requireContext())
+        val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.getMovieList(movieType).observe(this, Observer { adapter.submitList(it) })
         recyclerView.adapter = adapter
     }
@@ -41,12 +43,16 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
             MovieType.UPCOMING -> "Up Coming"
         }
     }
-    
+
     fun getIcon(): Int {
         return when(movieType){
             MovieType.POPULAR -> R.drawable.ic_whatshot_accent_24dp
             MovieType.TOP_RATED -> R.drawable.ic_star_accent_24dp
             MovieType.UPCOMING -> R.drawable.ic_event_accent_24dp
         }
+    }
+
+    companion object {
+        private const val GRID_COLUMNS = 3
     }
 }

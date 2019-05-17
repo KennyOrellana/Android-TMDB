@@ -7,9 +7,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:theme="@style/RecyclerViewTheme"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+            android:padding="8dp"
+            android:clipToPadding="false">
 
     </androidx.recyclerview.widget.RecyclerView>
 
