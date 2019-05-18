@@ -13,23 +13,30 @@ import app.kaisa.nekflix.model.Movie
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_home_movie.view.*
 
-class HomeAdapter(val context: Context): PagedListAdapter<Movie, HomeAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class HomeAdapter(val context: Context, val onClickListener: OnClickListener<Movie>): PagedListAdapter<Movie, HomeAdapter.MovieViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cell_home_movie, parent, false))
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bindTo(getItem(position), position)
+        holder.bindTo(holder, getItem(position))
     }
 
     inner class MovieViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val ivBackground: ImageView = view.imageViewBrackground
 
-        fun bindTo(movie: Movie?, position: Int){
+        fun bindTo(vh: MovieViewHolder, movie: Movie?){
             Glide.with(context)
                 .load(movie?.getPosterUrl())
+                .placeholder(android.R.color.black)
                 .into(ivBackground)
+
+            movie?.let { item -> vh.itemView.setOnClickListener { onClickListener.onClick(item) } }
         }
+    }
+
+    interface OnClickListener<in T> {
+        fun onClick(item: T)
     }
 
     companion object {

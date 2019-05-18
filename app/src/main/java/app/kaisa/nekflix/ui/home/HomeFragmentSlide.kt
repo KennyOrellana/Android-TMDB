@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import app.kaisa.nekflix.R
 import app.kaisa.nekflix.adapter.HomeAdapter
+import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.model.MovieType
+import app.kaisa.nekflix.utils.NavigationManager
 import app.kaisa.nekflix.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.fragment_home_slide.*
 
@@ -30,7 +32,12 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
 
     private fun setupRecyclerView(){
         recyclerView.layoutManager = GridLayoutManager(context, GRID_COLUMNS)
-        adapter = HomeAdapter(requireContext())
+        adapter = HomeAdapter(requireContext(), object : HomeAdapter.OnClickListener<Movie> {
+            override fun onClick(item: Movie) {
+                NavigationManager.handle(context, item)
+            }
+        })
+
         val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.getMovieList(movieType).observe(this, Observer { adapter.submitList(it) })
         recyclerView.adapter = adapter
@@ -47,8 +54,8 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
     fun getIcon(): Int {
         return when(movieType){
             MovieType.POPULAR -> R.drawable.ic_whatshot_accent_24dp
-            MovieType.TOP_RATED -> R.drawable.ic_star_accent_24dp
-            MovieType.UPCOMING -> R.drawable.ic_event_accent_24dp
+            MovieType.TOP_RATED -> R.drawable.ic_favorite_accent_24dp
+            MovieType.UPCOMING -> R.drawable.ic_flight_land_accent_24dp
         }
     }
 
