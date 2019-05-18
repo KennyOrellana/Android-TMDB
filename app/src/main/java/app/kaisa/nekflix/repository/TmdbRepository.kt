@@ -2,12 +2,11 @@ package app.kaisa.nekflix.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.*
 import app.kaisa.nekflix.api.TmdbNetwork
 import app.kaisa.nekflix.db.TmdbDatabase
-import app.kaisa.nekflix.model.Movie
-import app.kaisa.nekflix.model.MovieResponse
-import app.kaisa.nekflix.model.MovieType
+import app.kaisa.nekflix.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,6 +53,46 @@ class TmdbRepository(private val application: Application) {
                 }
             }
         })
+    }
+
+    fun requestMovieDetail(id: Int): LiveData<Movie> {
+        val mutableData = MutableLiveData<Movie>()
+
+        api.getMovieDetail(id).enqueue(object : Callback<Movie> {
+            override fun onFailure(call: Call<Movie>, t: Throwable) {
+                //TODO handle errors
+            }
+
+            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        mutableData.value = it
+                    }
+                }
+            }
+        })
+
+        return mutableData
+    }
+
+    fun requestMovieVideos(id: Int): LiveData<ArrayList<Video>> {
+        val mutableData = MutableLiveData<ArrayList<Video>>()
+
+        api.getMovieVideos(id).enqueue(object : Callback<MovieVideosResponse> {
+            override fun onFailure(call: Call<MovieVideosResponse>, t: Throwable) {
+                //TODO handle errors
+            }
+
+            override fun onResponse(call: Call<MovieVideosResponse>, response: Response<MovieVideosResponse>) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        mutableData.value = it.videos
+                    }
+                }
+            }
+        })
+
+        return mutableData
     }
 
     companion object {

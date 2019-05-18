@@ -12,7 +12,7 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@drawable/splash_background</item>
     </style>
-    
+
     <style name="ToolbarTextTheme" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">@font/gobold_regular</item>
         <item name="android:textColor">@color/colorAccent</item>

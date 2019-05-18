@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.fragment_home_slide.*
 class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
     lateinit var adapter: HomeAdapter
 
+    constructor() : this(MovieType.POPULAR) //Default constructor
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

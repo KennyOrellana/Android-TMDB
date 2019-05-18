@@ -2,7 +2,7 @@
 
 buildscript {
     ext.coroutines_version = '1.2.1'
-    ext.gson_version = '2.8.5'
+    ext.exoplayer = '2.10.0'
     ext.kotlin_version = '1.3.21'
     ext.lifecycle_version = '2.0.0'
     ext.material = '1.1.0-alpha06'
@@ -11,6 +11,7 @@ buildscript {
     ext.room_version = '2.1.0-beta01'
     ext.support = '28.0.0'
     ext.viewpager = '1.0.0-alpha04'
+    ext.youtube_extractor = 'master-SNAPSHOT'
 
     repositories {
         google()
@@ -29,7 +30,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url "https://jitpack.io" }
     }
 }
 

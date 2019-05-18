@@ -1,13 +1,20 @@
 package app.kaisa.nekflix.ui.landing
 
+import android.content.pm.ActivityInfo
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import app.kaisa.nekflix.R
 import app.kaisa.nekflix.model.Movie
+import app.kaisa.nekflix.model.Video
+import app.kaisa.nekflix.utils.NavigationManager
 import app.kaisa.nekflix.utils.NavigationManager.PARAM_CONTENT
+import app.kaisa.nekflix.viewmodel.MovieDetailViewModel
+import app.kaisa.nekflix.viewmodel.MovieDetailViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -16,18 +23,21 @@ import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_landing_movie.*
 
 class MovieLandingActivity : AppCompatActivity() {
-    lateinit var movie: Movie
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_movie)
-        loadData()
         setupToolbar()
-        setupUI()
+        loadData()
     }
 
     private fun loadData(){
-        movie = intent.getSerializableExtra(PARAM_CONTENT) as Movie
+        val movieTemp = intent.getSerializableExtra(PARAM_CONTENT) as Movie
+        setupUI(movieTemp) //Temporal data
+        val viewModel = ViewModelProviders.of(this, MovieDetailViewModelFactory(application, movieTemp)).get(MovieDetailViewModel::class.java)
+        viewModel.movieDetail.observe(this, Observer { setupUI(it) })
+        viewModel.movieVideos.observe(this, Observer { setupVideos(it) })
     }
 
     private fun setupToolbar(){
@@ -37,7 +47,7 @@ class MovieLandingActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    private fun setupUI(){
+    private fun setupUI(movie: Movie){
         Glide.with(this)
             .load(movie.getBackdropUrl())
             .placeholder(R.color.colorPrimary)
@@ -61,6 +71,26 @@ class MovieLandingActivity : AppCompatActivity() {
         textViewStars.text = movie.getStars()
         textViewDate.text = movie.getYear()
         textViewDescription.text = movie.overview
+
+        if(movie.tagline?.isNotEmpty() == true){
+            textViewGenres.text = movie.tagline
+            textViewGenres.visibility = View.VISIBLE
+        } else {
+            textViewGenres.visibility = View.GONE
+        }
+    }
+
+    private fun setupVideos(videos: ArrayList<Video>){
+        if(videos.isNotEmpty()){
+            imageViewPlay.visibility = View.VISIBLE
+
+            var video = videos.find { it.isTrailer() }
+
+            if (video == null) {
+                video = videos[0]
+            }
+            imageViewBanner?.setOnClickListener { NavigationManager.handle(this, video) }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

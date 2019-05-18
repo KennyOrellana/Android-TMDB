@@ -3,6 +3,7 @@
           package="app.kaisa.nekflix">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
             android:allowBackup="true"
@@ -12,14 +13,20 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".ui.splash.SplashActivity"
-                android:theme="@style/SplashTheme">
+                  android:screenOrientation="portrait"
+                  android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.home.MainActivity"/>
-        <activity android:name=".ui.landing.MovieLandingActivity"/>
+        <activity android:name=".ui.home.MainActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.landing.MovieLandingActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.player.PlayerActivity"
+                  android:screenOrientation="sensorLandscape"
+                  android:configChanges="orientation|screenSize|layoutDirection"/>
     </application>
 
 </manifest>

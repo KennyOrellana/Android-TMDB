@@ -1,7 +1,9 @@
 package app.kaisa.nekflix.api
 
 import app.kaisa.nekflix.BuildConfig
+import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.model.MovieResponse
+import app.kaisa.nekflix.model.MovieVideosResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -26,7 +28,10 @@ interface TmdbNetwork {
     fun getMoviesUpcoming(@Query("page") page: Int): Call<MovieResponse>
 
     @GET("movie/{id}")
-    fun getMovieDetail(@Path("id") id: Int): Call<MovieResponse>
+    fun getMovieDetail(@Path("id") id: Int): Call<Movie>
+
+    @GET("movie/{id}/videos")
+    fun getMovieVideos(@Path("id") id: Int): Call<MovieVideosResponse>
 
 
     companion object {

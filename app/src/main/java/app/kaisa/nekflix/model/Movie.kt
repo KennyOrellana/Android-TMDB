@@ -12,6 +12,12 @@ open class Movie(
     @PrimaryKey
     @SerializedName("id")
     val id: Int,
+    @SerializedName("omdb_id")
+    val imdbId: String?,
+    @SerializedName("adult")
+    val adult: Boolean?,
+    @SerializedName("runtime")
+    val runtime: Int?,
     @SerializedName("vote_count")
     val voteCount: Int?,
     @SerializedName("vote_average")
@@ -20,6 +26,8 @@ open class Movie(
     val popularity: Double?,
     @SerializedName("title")
     val title: String,
+    @SerializedName("tagline")
+    val tagline: String?,
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("backdrop_path")
