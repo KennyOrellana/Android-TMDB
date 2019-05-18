@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -23,6 +24,9 @@ interface TmdbNetwork {
 
     @GET("movie/upcoming")
     fun getMoviesUpcoming(@Query("page") page: Int): Call<MovieResponse>
+
+    @GET("movie/{id}")
+    fun getMovieDetail(@Path("id") id: Int): Call<MovieResponse>
 
 
     companion object {

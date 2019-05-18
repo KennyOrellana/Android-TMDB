@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import app.kaisa.nekflix.R
 import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.utils.NavigationManager.PARAM_CONTENT
@@ -21,11 +22,19 @@ class MovieLandingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing_movie)
         loadData()
+        setupToolbar()
         setupUI()
     }
 
     private fun loadData(){
         movie = intent.getSerializableExtra(PARAM_CONTENT) as Movie
+    }
+
+    private fun setupToolbar(){
+        setSupportActionBar(toolbar as Toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     private fun setupUI(){
@@ -52,5 +61,10 @@ class MovieLandingActivity : AppCompatActivity() {
         textViewStars.text = movie.getStars()
         textViewDate.text = movie.getYear()
         textViewDescription.text = movie.overview
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

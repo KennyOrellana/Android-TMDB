@@ -5,4 +5,5 @@
     <color name="colorAccent">#01d277</color>
     <color name="colorAccent50">#8001d277</color>
     <color name="window_background">#212721</color>
+    <color name="tabs_background">#0C2C38</color>
 </resources>

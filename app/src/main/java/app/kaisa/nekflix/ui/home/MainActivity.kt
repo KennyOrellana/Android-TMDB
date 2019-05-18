@@ -15,13 +15,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupToolbar()
         setupUI()
     }
 
-    private fun setupUI(){
+    private fun setupToolbar(){
         setSupportActionBar(toolbar as Toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
 
+    private fun setupUI(){
         val adapter = HomeFragmentStateAdapter(this)
         MovieType.values().forEach {
             adapter.addFragment(HomeFragmentSlide(it))
