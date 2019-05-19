@@ -1,5 +1,7 @@
 package app.kaisa.nekflix.utils
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import app.kaisa.nekflix.model.Movie
@@ -16,10 +18,10 @@ object NavigationManager {
         context?.startActivity(intent)
     }
 
-    fun handle(context: Context?, movie: Movie){
+    fun handle(context: Activity?, movie: Movie, activityOptions: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(context)){
         val intent = Intent(context, MovieLandingActivity::class.java)
         intent.putExtra(PARAM_CONTENT, movie)
-        context?.startActivity(intent)
+        context?.startActivity(intent, activityOptions.toBundle())
     }
 
     const val PARAM_CONTENT = "param_content"

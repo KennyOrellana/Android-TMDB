@@ -17,6 +17,7 @@ import app.kaisa.nekflix.viewmodel.MovieDetailViewModel
 import app.kaisa.nekflix.viewmodel.MovieDetailViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -63,6 +64,7 @@ class MovieLandingActivity : AppCompatActivity() {
 
         Glide.with(this)
             .load(movie.getPosterUrl())
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .placeholder(android.R.color.black)
             .into(imageViewPoster)
 
@@ -81,7 +83,7 @@ class MovieLandingActivity : AppCompatActivity() {
     }
 
     private fun setupVideos(videos: ArrayList<Video>){
-        if(videos.isNotEmpty()){
+        if(videos.isNotEmpty() && !isDestroyed && !isFinishing){
             imageViewPlay.visibility = View.VISIBLE
 
             var video = videos.find { it.isTrailer() }

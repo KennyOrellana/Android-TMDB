@@ -1,6 +1,8 @@
 package app.kaisa.nekflix.ui.home
 
+import android.app.ActivityOptions
 import android.os.Bundle
+import android.util.Pair as UtilPair // Rename the Pair class from the Android framework to avoid a name clash
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.model.MovieType
 import app.kaisa.nekflix.utils.NavigationManager
 import app.kaisa.nekflix.viewmodel.MovieViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home_slide.*
 
 class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
@@ -34,9 +37,14 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
 
     private fun setupRecyclerView(){
         recyclerView.layoutManager = GridLayoutManager(context, GRID_COLUMNS)
-        adapter = HomeAdapter(requireContext(), object : HomeAdapter.OnClickListener<Movie> {
-            override fun onClick(item: Movie) {
-                NavigationManager.handle(context, item)
+        adapter = HomeAdapter(requireContext(), object : HomeAdapter.OnClickListener<Pair<Movie, View>> {
+            override fun onClick(item: Pair<Movie, View>) {
+                val options = ActivityOptions.makeSceneTransitionAnimation(
+                    activity,
+                    UtilPair.create(item.second, "poster"),
+                    UtilPair.create(activity?.toolbar as? View, "toolbar")
+                )
+                NavigationManager.handle(activity, item.first, options)
             }
         })
 

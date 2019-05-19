@@ -6,4 +6,6 @@
     <color name="colorAccent50">#8001d277</color>
     <color name="window_background">#212721</color>
     <color name="tabs_background">#0C2C38</color>
+    <color name="red">#D20D45</color>
+    <color name="yellow">#D9CC23</color>
 </resources>
