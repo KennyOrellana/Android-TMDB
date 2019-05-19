@@ -14,7 +14,7 @@ import app.kaisa.nekflix.model.Video
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_landing_movie_video.view.*
 
-class LandingMovieAdapter(val context: Context) : ListAdapter<Video, LandingMovieAdapter.VideoViewHolder>(DIFF_CALLBACK) {
+class LandingMovieAdapter(val context: Context, val clickListener: (video: Video) -> Unit) : ListAdapter<Video, LandingMovieAdapter.VideoViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
         return VideoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cell_landing_movie_video, parent, false))
@@ -48,6 +48,7 @@ class LandingMovieAdapter(val context: Context) : ListAdapter<Video, LandingMovi
 
             if(item.urlPlayback?.isNotEmpty() == true){
                 ivPlay.visibility = View.VISIBLE
+                ivPlay.setOnClickListener { clickListener(item) }
             } else {
                 ivPlay.visibility = View.INVISIBLE
             }

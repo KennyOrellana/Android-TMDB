@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import app.kaisa.nekflix.R
 import app.kaisa.nekflix.adapter.HomeAdapter
-import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.model.MovieType
 import app.kaisa.nekflix.utils.NavigationManager
 import app.kaisa.nekflix.viewmodel.MovieViewModel
@@ -37,16 +36,14 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
 
     private fun setupRecyclerView(){
         recyclerView.layoutManager = GridLayoutManager(context, GRID_COLUMNS)
-        adapter = HomeAdapter(requireContext(), object : HomeAdapter.OnClickListener<Pair<Movie, View>> {
-            override fun onClick(item: Pair<Movie, View>) {
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    activity,
-                    UtilPair.create(item.second, "poster"),
-                    UtilPair.create(activity?.toolbar as? View, "toolbar")
-                )
-                NavigationManager.handle(activity, item.first, options)
-            }
-        })
+        adapter = HomeAdapter(requireContext()) { movie, view ->
+            val options = ActivityOptions.makeSceneTransitionAnimation(
+                activity,
+                UtilPair.create(view, "poster"),
+                UtilPair.create(activity?.toolbar as? View, "toolbar")
+            )
+            NavigationManager.handle(activity, movie, options)
+        }
 
         val viewModel = ViewModelProviders.of(this).get(MovieViewModel::class.java)
         viewModel.getMovieList(movieType).observe(this, Observer { adapter.submitList(it) })

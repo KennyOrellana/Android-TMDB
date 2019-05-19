@@ -13,9 +13,11 @@ import app.kaisa.nekflix.ui.player.PlayerActivity.Companion.PARAM_URL
 object NavigationManager {
 
     fun handle(context: Context?, item: Video){
-        val intent = Intent(context, PlayerActivity::class.java)
-        intent.putExtra(PARAM_URL, item.getYouTubeUrl())
-        context?.startActivity(intent)
+        if(context != null && item.urlPlayback?.isNotBlank() == true) {
+            val intent = Intent(context, PlayerActivity::class.java)
+            intent.putExtra(PARAM_URL, item.urlPlayback)
+            context.startActivity(intent)
+        }
     }
 
     fun handle(context: Activity?, movie: Movie, activityOptions: ActivityOptions = ActivityOptions.makeSceneTransitionAnimation(context)){

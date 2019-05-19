@@ -12,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
 
 class TmdbRepository(private val application: Application) {
 
@@ -88,7 +89,9 @@ class TmdbRepository(private val application: Application) {
                 if(response.isSuccessful){
                     response.body()?.let {
                         mutableData.value = it.videos
-                        PlayerUtils.requestVideoPlaybackData(application, mutableData)
+                        Executors.newSingleThreadExecutor().execute {
+                            PlayerUtils.requestVideoPlaybackData(application, mutableData)
+                        }
                     }
                 }
             }

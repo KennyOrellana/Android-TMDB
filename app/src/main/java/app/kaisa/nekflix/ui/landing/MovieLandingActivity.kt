@@ -27,7 +27,6 @@ import kotlinx.android.synthetic.main.activity_landing_movie.*
 
 class MovieLandingActivity : AppCompatActivity() {
     private lateinit var viewModel: MovieDetailViewModel
-    private val adapter = LandingMovieAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -80,30 +79,38 @@ class MovieLandingActivity : AppCompatActivity() {
         textViewDescription.text = movie.overview
 
         if(movie.tagline?.isNotEmpty() == true){
-            textViewGenres.text = movie.tagline
-            textViewGenres.visibility = View.VISIBLE
+            textViewTagline.text = movie.tagline
+            textViewTagline.visibility = View.VISIBLE
         } else {
-            textViewGenres.visibility = View.GONE
+            textViewTagline.visibility = View.GONE
         }
     }
 
     private fun setupBanner(videos: ArrayList<Video>){
         if(videos.isNotEmpty() && !isDestroyed && !isFinishing){
-            image_view_play.visibility = View.VISIBLE
 
-            var video = videos.find { it.isTrailer() }
-
+            var video = videos.find { it.isTrailer() && it.urlPlayback != null}
             if (video == null) {
-                video = videos[0]
+                video = videos.find { it.urlPlayback?.isNotBlank() == true}
             }
-            imageViewBanner?.setOnClickListener { NavigationManager.handle(this, video) }
+
+            video?.let { item ->
+                image_view_play.visibility = View.VISIBLE
+                imageViewBanner.setOnClickListener {
+                    NavigationManager.handle(this, item)
+                }
+            }
         }
     }
 
     private fun setupVideos(){
+        val adapter = LandingMovieAdapter(this) {
+            NavigationManager.handle(this, it)
+        }
+
+        recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
         viewModel.movieVideos.observe(this, Observer {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
