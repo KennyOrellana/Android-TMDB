@@ -7,6 +7,7 @@ import androidx.paging.*
 import app.kaisa.nekflix.api.TmdbNetwork
 import app.kaisa.nekflix.db.TmdbDatabase
 import app.kaisa.nekflix.model.*
+import app.kaisa.nekflix.utils.PlayerUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -87,6 +88,7 @@ class TmdbRepository(private val application: Application) {
                 if(response.isSuccessful){
                     response.body()?.let {
                         mutableData.value = it.videos
+                        PlayerUtils.requestVideoPlaybackData(application, mutableData)
                     }
                 }
             }

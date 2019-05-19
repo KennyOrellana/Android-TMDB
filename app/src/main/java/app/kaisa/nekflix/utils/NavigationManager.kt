@@ -14,7 +14,7 @@ object NavigationManager {
 
     fun handle(context: Context?, item: Video){
         val intent = Intent(context, PlayerActivity::class.java)
-        intent.putExtra(PARAM_URL, item.getUrl())
+        intent.putExtra(PARAM_URL, item.getYouTubeUrl())
         context?.startActivity(intent)
     }
 

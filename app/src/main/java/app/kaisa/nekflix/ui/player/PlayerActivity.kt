@@ -9,7 +9,6 @@ import android.net.Uri
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import app.kaisa.nekflix.R
-import app.kaisa.nekflix.utils.PlayerUtils
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import kotlinx.android.synthetic.main.activity_player.*
@@ -25,7 +24,7 @@ class PlayerActivity : AppCompatActivity() {
         setupOrientation()
         setContentView(R.layout.activity_player)
         setupPlayer()
-        getUrl()
+        setupMediaSource()
     }
 
     private fun setupOrientation(){
@@ -53,14 +52,8 @@ class PlayerActivity : AppCompatActivity() {
         })
     }
 
-    private fun getUrl(){
+    private fun setupMediaSource(){
         val url = intent.getStringExtra(PARAM_URL)
-        PlayerUtils.getYouTubeUrl(this, url){
-            setupMediaSource(it)
-        }
-    }
-    private fun setupMediaSource(url: String){
-
         val dataSourceFactory = DefaultDataSourceFactory(this, Util.getUserAgent(this, "tmdb"))
 
         val videoSource = ProgressiveMediaSource.Factory(dataSourceFactory)

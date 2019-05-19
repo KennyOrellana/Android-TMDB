@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import app.kaisa.nekflix.R
+import app.kaisa.nekflix.adapter.LandingMovieAdapter
 import app.kaisa.nekflix.model.Movie
 import app.kaisa.nekflix.model.Video
 import app.kaisa.nekflix.utils.NavigationManager
@@ -24,6 +26,8 @@ import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_landing_movie.*
 
 class MovieLandingActivity : AppCompatActivity() {
+    private lateinit var viewModel: MovieDetailViewModel
+    private val adapter = LandingMovieAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -31,14 +35,15 @@ class MovieLandingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_landing_movie)
         setupToolbar()
         loadData()
+        setupVideos()
     }
 
     private fun loadData(){
         val movieTemp = intent.getSerializableExtra(PARAM_CONTENT) as Movie
         setupUI(movieTemp) //Temporal data
-        val viewModel = ViewModelProviders.of(this, MovieDetailViewModelFactory(application, movieTemp)).get(MovieDetailViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, MovieDetailViewModelFactory(application, movieTemp)).get(MovieDetailViewModel::class.java)
         viewModel.movieDetail.observe(this, Observer { setupUI(it) })
-        viewModel.movieVideos.observe(this, Observer { setupVideos(it) })
+        viewModel.movieVideos.observe(this, Observer { setupBanner(it) })
     }
 
     private fun setupToolbar(){
@@ -82,9 +87,9 @@ class MovieLandingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupVideos(videos: ArrayList<Video>){
+    private fun setupBanner(videos: ArrayList<Video>){
         if(videos.isNotEmpty() && !isDestroyed && !isFinishing){
-            imageViewPlay.visibility = View.VISIBLE
+            image_view_play.visibility = View.VISIBLE
 
             var video = videos.find { it.isTrailer() }
 
@@ -93,6 +98,16 @@ class MovieLandingActivity : AppCompatActivity() {
             }
             imageViewBanner?.setOnClickListener { NavigationManager.handle(this, video) }
         }
+    }
+
+    private fun setupVideos(){
+        recyclerView.isNestedScrollingEnabled = false
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        viewModel.movieVideos.observe(this, Observer {
+            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {

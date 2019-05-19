@@ -14,9 +14,11 @@ class Video (
     @SerializedName("size")
     val size: Int,
     @SerializedName("type")
-    val type: String
+    val type: String,
+    var urlPlayback: String?,
+    var urlThumbnail: String?
 ) {
-    fun getUrl(): String {
+    fun getYouTubeUrl(): String {
         return "https://www.youtube.com/watch?v=$key"
     }
 
