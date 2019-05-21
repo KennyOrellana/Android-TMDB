@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="app.kaisa.nekflix">
+          package="app.kaisa.tmdb">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -12,7 +12,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.splash.SplashActivity"
+        <activity android:name="app.kaisa.tmdb.ui.splash.SplashActivity"
                   android:screenOrientation="portrait"
                   android:theme="@style/SplashTheme">
             <intent-filter>
@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.search.SearchActivity"
+        <activity android:name="app.kaisa.tmdb.ui.search.SearchActivity"
                   android:screenOrientation="portrait"
                 android:launchMode="singleTop">
             <intent-filter>
@@ -30,14 +30,14 @@
             <meta-data android:name="android.app.searchable"
                        android:resource="@xml/searchable"/>
         </activity>
-        <activity android:name=".ui.home.MainActivity"
+        <activity android:name="app.kaisa.tmdb.ui.home.MainActivity"
                   android:screenOrientation="portrait">
             <meta-data android:name="android.app.default_searchable"
                        android:value=".ui.search.SearchActivity" />
         </activity>
-        <activity android:name=".ui.landing.MovieLandingActivity"
+        <activity android:name="app.kaisa.tmdb.ui.landing.MovieLandingActivity"
                   android:screenOrientation="portrait"/>
-        <activity android:name=".ui.player.PlayerActivity"
+        <activity android:name="app.kaisa.tmdb.ui.player.PlayerActivity"
                   android:screenOrientation="sensorLandscape"
                   android:configChanges="orientation|screenSize|layoutDirection"/>
     </application>
