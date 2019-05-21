@@ -9,20 +9,9 @@
         android:orientation="vertical"
         android:background="@color/window_background">
 
-   <androidx.appcompat.widget.Toolbar
-           android:id="@+id/toolbar"
-           android:transitionName="toolbar"
-           android:layout_width="match_parent"
-           android:layout_height="?attr/actionBarSize"
-           android:background="?attr/colorPrimary"
-           android:elevation="4dp">
-      <TextView
-              android:id="@+id/tvToolbarTitle"
-              android:text="@string/app_title"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              style="@style/ToolbarTextTheme"/>
-   </androidx.appcompat.widget.Toolbar>
+   <include layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
    <com.google.android.material.appbar.AppBarLayout
            android:id="@+id/appBar"

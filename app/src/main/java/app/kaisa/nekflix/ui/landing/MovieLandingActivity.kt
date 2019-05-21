@@ -24,6 +24,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.activity_landing_movie.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MovieLandingActivity : AppCompatActivity() {
     private lateinit var viewModel: MovieDetailViewModel

@@ -33,6 +33,12 @@ interface TmdbNetwork {
     @GET("movie/{id}/videos")
     fun getMovieVideos(@Path("id") id: Int): Call<MovieVideosResponse>
 
+    @GET("search/movie")
+    fun searchMovie(
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): Call<MovieResponse>
+
 
     companion object {
         val api by lazy { create() }

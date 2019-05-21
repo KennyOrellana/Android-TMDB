@@ -38,12 +38,8 @@ class HomeAdapter(val context: Context, val onClickListener: (movie: Movie, view
         }
     }
 
-    interface OnClickListener<in T> {
-        fun onClick(item: T)
-    }
-
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem.id == newItem.id
             override fun areContentsTheSame(oldItem: Movie, newItem: Movie) = oldItem == newItem
         }

@@ -32,6 +32,10 @@ class TmdbRepository(private val application: Application) {
         movieLiveBuilder(this, MovieType.UPCOMING)
     }
 
+    val searchResults: MutableLiveData<ArrayList<Movie>> by lazy {
+        MutableLiveData<ArrayList<Movie>>()
+    }
+
     fun requestMovies(page: Int, movieType: MovieType) {
         val request = when(movieType) {
             MovieType.POPULAR -> api.getMoviesPopular(page)
@@ -98,6 +102,22 @@ class TmdbRepository(private val application: Application) {
         })
 
         return mutableData
+    }
+
+    fun searchMovie(query: String, page: Int) {
+        api.searchMovie(query, page).enqueue(object : Callback<MovieResponse> {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                //TODO handle errors
+            }
+
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        searchResults.value = it.results
+                    }
+                }
+            }
+        })
     }
 
     companion object {

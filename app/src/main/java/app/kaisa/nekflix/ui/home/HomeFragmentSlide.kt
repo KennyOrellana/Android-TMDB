@@ -15,7 +15,7 @@ import app.kaisa.nekflix.adapter.HomeAdapter
 import app.kaisa.nekflix.model.MovieType
 import app.kaisa.nekflix.utils.NavigationManager
 import app.kaisa.nekflix.viewmodel.MovieViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.toolbar.*
 import kotlinx.android.synthetic.main.fragment_home_slide.*
 
 class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
@@ -67,6 +67,6 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
     }
 
     companion object {
-        private const val GRID_COLUMNS = 3
+        const val GRID_COLUMNS = 3
     }
 }
