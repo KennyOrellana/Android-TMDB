@@ -13,7 +13,7 @@ import app.kaisa.tmdb.model.Movie
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.cell_home_movie.view.*
 
-class SearchAdapter(private val context: Context, private val clickListener: (item: Movie) -> Unit) : ListAdapter<Movie, SearchAdapter.MovieViewHolder>(DIFF_CALLBACK) {
+class SearchAdapter(private val context: Context, private val clickListener: (item: Movie, view: View) -> Unit) : ListAdapter<Movie, SearchAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cell_home_movie, parent, false))
@@ -38,7 +38,9 @@ class SearchAdapter(private val context: Context, private val clickListener: (it
                 ivThumbnail.setImageResource(android.R.color.black)
             }
 
-            ivThumbnail.setOnClickListener { clickListener(item) }
+            ivThumbnail.setOnClickListener { view ->
+                clickListener(item, view)
+            }
         }
     }
 }

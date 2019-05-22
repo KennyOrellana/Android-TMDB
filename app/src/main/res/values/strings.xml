@@ -2,4 +2,5 @@
     <string name="app_name">The Movie DB</string>
     <string name="app_title">The Movie Database</string>
     <string name="search_hint">Movie time</string>
+    <string name="no_results">No Results</string>
 </resources>

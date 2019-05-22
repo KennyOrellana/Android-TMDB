@@ -1,9 +1,11 @@
 package app.kaisa.tmdb.ui.search
 
+import android.app.ActivityOptions
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Pair
 import android.view.Menu
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +19,7 @@ import app.kaisa.tmdb.adapter.SearchAdapter
 import app.kaisa.tmdb.ui.home.HomeFragmentSlide.Companion.GRID_COLUMNS
 import app.kaisa.tmdb.utils.NavigationManager
 import app.kaisa.tmdb.viewmodel.SearchViewModel
-import kotlinx.android.synthetic.main.activity_search.recyclerView
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class SearchActivity : AppCompatActivity() {
@@ -52,6 +54,8 @@ class SearchActivity : AppCompatActivity() {
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             setIconifiedByDefault(false)
+            maxWidth = Integer.MAX_VALUE
+            intent?.getStringExtra(SearchManager.QUERY)?.also { setQuery(it, false) }
         }
 
         return true
@@ -66,19 +70,36 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupUI(){
-        adapter = SearchAdapter(this) { NavigationManager.handle(this, it) }
+        adapter = SearchAdapter(this) { item, view ->
+            val options = ActivityOptions.makeSceneTransitionAnimation(
+                this,
+                Pair.create(view, "poster"),
+                Pair.create(toolbar as? View, "toolbar")
+            )
+            NavigationManager.handle(this, item, options)
+        }
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(this, GRID_COLUMNS)
     }
 
     private fun setupViewModel(){
         viewModel = ViewModelProviders.of(this).get(SearchViewModel::class.java)
-        viewModel.searchResults.observe(this, Observer { adapter.submitList(it) })
+        viewModel.searchResults.observe(this, Observer {
+            progressBar?.visibility = View.GONE
+            adapter.submitList(it)
+            if(it?.isNotEmpty() == true){
+                textViewError?.visibility = View.GONE
+            } else {
+                textViewError?.visibility = View.VISIBLE
+            }
+        })
     }
 
     private fun loadQuery(intentData: Intent?){
         if(intentData?.action == Intent.ACTION_SEARCH) {
             intentData.getStringExtra(SearchManager.QUERY)?.also {
+                textViewError?.visibility = View.GONE
+                progressBar?.visibility = View.VISIBLE
                 viewModel.search(it)
             }
         }

@@ -14,7 +14,7 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
     <style name="ToolbarTextTheme" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">

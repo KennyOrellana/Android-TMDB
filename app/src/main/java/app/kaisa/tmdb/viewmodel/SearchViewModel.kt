@@ -17,6 +17,4 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     fun search(query: String, page: Int = 1) {
         repository.searchMovie(query, page)
     }
-
-    //TODO animar transiciones del search al landing, progress bar para loading, mensaje de error search, busqueda local cuando falla online
 }

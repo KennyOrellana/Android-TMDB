@@ -7,7 +7,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp">
+            android:elevation="4dp"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp"
+            app:contentInsetStartWithNavigation="0dp">
         <TextView
                 android:id="@+id/tvToolbarTitle"
                 android:text="@string/app_title"

@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
+            maxWidth = Integer.MAX_VALUE
         }
 
         return true
