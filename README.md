@@ -54,3 +54,4 @@ Un buen código es aquel que se escribe teniendo en cuenta las siguientes consid
 - Seguir buenas prá
 - En el caso de Android se deben hacer pruebas en varios dispositivos con diferentes tamaños y densidades de pantalla, además de diversas marcas y versiones de OS.
 - Seguir buenas prácticas de programación.
+- Documentar y agregar los comentarios para facilitar la lectura y compresión del código.
