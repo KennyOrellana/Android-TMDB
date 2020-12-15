@@ -12,8 +12,8 @@ import androidx.viewpager2.widget.ViewPager2
 import app.kaisa.tmdb.R
 import app.kaisa.tmdb.adapter.HomeFragmentStateAdapter
 import app.kaisa.tmdb.model.MovieType
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.tmdb_activity_main.*
+import kotlinx.android.synthetic.main.tmdb_toolbar.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.tmdb_activity_main)
         setupToolbar()
         setupUI()
     }
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.menu_home, menu)
+        inflater.inflate(R.menu.tmdb_menu_home, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {

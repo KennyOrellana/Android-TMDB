@@ -15,8 +15,8 @@ import app.kaisa.tmdb.adapter.HomeAdapter
 import app.kaisa.tmdb.model.MovieType
 import app.kaisa.tmdb.utils.NavigationManager
 import app.kaisa.tmdb.viewmodel.MovieViewModel
-import kotlinx.android.synthetic.main.toolbar.*
-import kotlinx.android.synthetic.main.fragment_home_slide.*
+import kotlinx.android.synthetic.main.tmdb_toolbar.*
+import kotlinx.android.synthetic.main.tmdb_fragment_home_slide.*
 
 class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
     lateinit var adapter: HomeAdapter
@@ -27,7 +27,7 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_home_slide, container, false)
+    ): View? = inflater.inflate(R.layout.tmdb_fragment_home_slide, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,9 +60,9 @@ class HomeFragmentSlide(private val movieType: MovieType) : Fragment() {
 
     fun getIcon(): Int {
         return when(movieType){
-            MovieType.POPULAR -> R.drawable.ic_whatshot_accent_24dp
-            MovieType.TOP_RATED -> R.drawable.ic_favorite_accent_24dp
-            MovieType.UPCOMING -> R.drawable.ic_flight_land_accent_24dp
+            MovieType.POPULAR -> R.drawable.tmdb_ic_whatshot_accent_24dp
+            MovieType.TOP_RATED -> R.drawable.tmdb_ic_favorite_accent_24dp
+            MovieType.UPCOMING -> R.drawable.tmdb_ic_flight_land_accent_24dp
         }
     }
 

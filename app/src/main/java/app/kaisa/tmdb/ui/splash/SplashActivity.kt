@@ -16,7 +16,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-            setContentView(R.layout.activity_splash)
+            setContentView(R.layout.tmdb_activity_splash)
         }
 
         Timer().schedule(object : TimerTask(){

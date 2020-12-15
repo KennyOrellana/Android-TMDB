@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import app.kaisa.tmdb.R
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
-import kotlinx.android.synthetic.main.activity_player.*
+import kotlinx.android.synthetic.main.tmdb_activity_player.*
 
 
 
@@ -22,7 +22,7 @@ class PlayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupOrientation()
-        setContentView(R.layout.activity_player)
+        setContentView(R.layout.tmdb_activity_player)
         setupPlayer()
         setupMediaSource()
     }

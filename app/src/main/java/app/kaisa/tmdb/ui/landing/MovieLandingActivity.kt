@@ -23,8 +23,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import kotlinx.android.synthetic.main.activity_landing_movie.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.tmdb_activity_landing_movie.*
+import kotlinx.android.synthetic.main.tmdb_toolbar.*
 
 class MovieLandingActivity : AppCompatActivity() {
     private lateinit var viewModel: MovieDetailViewModel
@@ -32,7 +32,7 @@ class MovieLandingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_landing_movie)
+        setContentView(R.layout.tmdb_activity_landing_movie)
         setupToolbar()
         loadData()
         setupVideos()
@@ -56,7 +56,7 @@ class MovieLandingActivity : AppCompatActivity() {
     private fun setupUI(movie: Movie){
         Glide.with(this)
             .load(movie.getBackdropUrl())
-            .placeholder(R.color.colorPrimary)
+            .placeholder(R.color.tmdbColorPrimary)
             .listener(object : RequestListener<Drawable>{
                 override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean { return false }
 

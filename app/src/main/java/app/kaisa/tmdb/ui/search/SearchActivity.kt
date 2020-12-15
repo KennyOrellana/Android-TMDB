@@ -19,8 +19,8 @@ import app.kaisa.tmdb.adapter.SearchAdapter
 import app.kaisa.tmdb.ui.home.HomeFragmentSlide.Companion.GRID_COLUMNS
 import app.kaisa.tmdb.utils.NavigationManager
 import app.kaisa.tmdb.viewmodel.SearchViewModel
-import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.tmdb_activity_search.*
+import kotlinx.android.synthetic.main.tmdb_toolbar.*
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var viewModel: SearchViewModel
@@ -28,7 +28,7 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(R.layout.tmdb_activity_search)
         setupToolbar()
         setupUI()
         setupViewModel()
@@ -48,7 +48,7 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
-        inflater.inflate(R.menu.menu_search, menu)
+        inflater.inflate(R.menu.tmdb_menu_search, menu)
 
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {

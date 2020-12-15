@@ -1,32 +1,32 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
+    <style name="TmdbAppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/tmdbColorPrimary</item>
+        <item name="colorPrimaryDark">@color/tmdbColorPrimaryDark</item>
+        <item name="colorAccent">@color/tmdbColorAccent</item>
+        <item name="android:statusBarColor">@color/tmdbColorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/tmdbColorPrimaryDark</item>
+        <item name="android:windowBackground">@color/tmdbColorPrimaryDark</item>
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowEnterTransition">@android:transition/explode</item>
         <item name="android:windowExitTransition">@android:transition/explode</item>
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
-        <item name="android:windowBackground">@color/colorPrimary</item>
+    <style name="TmdbSplashTheme" parent="TmdbAppTheme">
+        <item name="android:windowBackground">@color/tmdbColorPrimary</item>
     </style>
 
-    <style name="ToolbarTextTheme" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="TmdbToolbarTextTheme" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">@font/gobold_regular</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/tmdbColorAccent</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:letterSpacing">0.1</item>
     </style>
 
-    <style name="RecyclerViewTheme" parent="AppTheme">
-        <item name="android:colorPrimary">@color/colorAccent</item>
+    <style name="TmdbRecyclerViewTheme" parent="TmdbAppTheme">
+        <item name="android:colorPrimary">@color/tmdbColorAccent</item>
     </style>
 
 </resources>

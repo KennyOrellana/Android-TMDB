@@ -7,7 +7,7 @@
         android:orientation="vertical">
 
     <include
-            layout="@layout/toolbar"
+            layout="@layout/tmdb_toolbar"
             android:id="@+id/toolbar_layout"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
-                android:theme="@style/RecyclerViewTheme"
+                android:theme="@style/TmdbRecyclerViewTheme"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:paddingTop="4dp"
@@ -49,7 +49,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/tmdbColorAccent"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

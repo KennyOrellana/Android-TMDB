@@ -9,7 +9,7 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="wrap_content"
                                                    android:padding="8dp"
-                                                   android:background="@drawable/bg_landing_movie_tabs">
+                                                   android:background="@drawable/tmdb_bg_landing_movie_tabs">
 
     <ImageView
             android:id="@+id/image_view_thumbnail"
@@ -35,7 +35,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/tmdbColorAccent"
             android:layout_marginEnd="8dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintBottom_toTopOf="@+id/text_view_name"
@@ -46,13 +46,13 @@
     <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:srcCompat="@drawable/ic_play_circle_outline_white_24dp"
+            app:srcCompat="@drawable/tmdb_ic_play_circle_outline_white_24dp"
             android:id="@+id/image_view_play"
             app:layout_constraintEnd_toEndOf="@+id/image_view_thumbnail"
             app:layout_constraintStart_toStartOf="@+id/image_view_thumbnail"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_thumbnail"
             app:layout_constraintTop_toTopOf="@+id/image_view_thumbnail"
-            android:background="@drawable/bg_landing_movie_play"/>
+            android:background="@drawable/tmdb_bg_landing_movie_play"/>
 
     <TextView
             android:id="@+id/text_view_name"

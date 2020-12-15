@@ -1,17 +1,22 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.coroutines_version = '1.2.1'
     ext.exoplayer = '2.10.0'
-    ext.kotlin_version = '1.3.21'
-    ext.lifecycle_version = '2.0.0'
-    ext.material = '1.1.0-alpha06'
-    ext.paging_version = '2.1.0'
-    ext.retrofit_version = '2.5.0'
     ext.room_version = '2.1.0-beta01'
     ext.support = '28.0.0'
-    ext.viewpager = '1.0.0-alpha04'
+    ext.viewpager = '1.0.0'
     ext.youtube_extractor = 'master-SNAPSHOT'
+
+    ext.kotlin_version = "1.3.72"
+    ext.paging_version = "3.0.0-alpha10"
+    ext.coroutines_version = "1.4.1"
+    ext.lifecycle_version = "2.2.0"
+    ext.glide_version = "4.11.0"
+    ext.retrofit_version = "2.9.0"
+    ext.constraint_version = "2.0.4"
+    ext.material = '1.2.1'
+    ext.app_compat = '1.2.0'
+    ext.core_ktx = '1.3.2'
 
     repositories {
         google()
@@ -19,7 +24,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
+        classpath 'com.android.tools.build:gradle:4.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

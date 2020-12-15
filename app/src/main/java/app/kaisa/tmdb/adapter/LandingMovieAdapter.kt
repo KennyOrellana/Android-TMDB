@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import app.kaisa.tmdb.R
 import app.kaisa.tmdb.model.Video
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.cell_landing_movie_video.view.*
+import kotlinx.android.synthetic.main.tmdb_cell_landing_movie_video.view.*
 
 class LandingMovieAdapter(val context: Context, val clickListener: (video: Video) -> Unit) : ListAdapter<Video, LandingMovieAdapter.VideoViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VideoViewHolder {
-        return VideoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cell_landing_movie_video, parent, false))
+        return VideoViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.tmdb_cell_landing_movie_video, parent, false))
     }
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {
